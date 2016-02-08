@@ -1,10 +1,9 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace PlexListener.XMLContainers
+namespace PlexListener.PMS.XMLContainers
 {
-    [XmlType("Photo")]
-    public class Photo
+    [XmlType("Video")]
+    public class Video
     {
         [XmlAttribute("title")]
         public string Title { get; set; }

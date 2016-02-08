@@ -39,20 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notification-Containers\PlexNotificationArgs.cs" />
-    <Compile Include="PlexListenerService.cs" />
-    <Compile Include="WebCommunication\PlexFileChecker.cs" />
-    <Compile Include="WebCommunication\PlexWebChecker.cs" />
-    <Compile Include="XMLContainers\User.cs" />
-    <Compile Include="XMLContainers\MediaContainer.cs" />
-    <Compile Include="XMLContainers\Player.cs" />
-    <Compile Include="XMLContainers\Photo.cs" />
-    <Compile Include="XMLContainers\Video.cs" />
+    <Compile Include="Notification\PlexNotificationArgs.cs" />
+    <Compile Include="PMC\PlexListenerService.cs" />
+    <Compile Include="PMC\WebCommunication\PlexWebChecker.cs" />
+    <Compile Include="PMC\XMLContainers\MediaContainer.cs" />
+    <Compile Include="PMC\XMLContainers\Timeline.cs" />
+    <Compile Include="PMS\PlexListenerService.cs" />
+    <Compile Include="PMS\WebCommunication\PlexFileChecker.cs" />
+    <Compile Include="PMS\WebCommunication\PlexWebChecker.cs" />
+    <Compile Include="PMS\XMLContainers\User.cs" />
+    <Compile Include="PMS\XMLContainers\MediaContainer.cs" />
+    <Compile Include="PMS\XMLContainers\Player.cs" />
+    <Compile Include="PMS\XMLContainers\Photo.cs" />
+    <Compile Include="PMS\XMLContainers\Video.cs" />
     <Compile Include="IPLexListener.cs" />
-    <Compile Include="Notification-Containers\PlexListenerEventData.cs" />
-    <Compile Include="Notification-Containers\PlexListenerConfig.cs" />
+    <Compile Include="Notification\PlexListenerEventData.cs" />
+    <Compile Include="PMS\PlexListenerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Notification-Containers\EventType.cs" />
+    <Compile Include="Notification\EventType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

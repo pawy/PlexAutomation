@@ -2,9 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
-using PlexListener.XMLContainers;
+using PlexListener.PMC.XMLContainers;
 
-namespace PlexListener.WebCommunication
+namespace PlexListener.PMC.WebCommunication
 {
     public class PlexWebChecker
     {
@@ -17,6 +17,7 @@ namespace PlexListener.WebCommunication
         public MediaContainer Check()
         {
             var request = WebRequest.Create(_serverUri);
+            request.Headers.Add("x-Plex-Client-Identifier","12345");
             var response = request.GetResponse();
 
             if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)

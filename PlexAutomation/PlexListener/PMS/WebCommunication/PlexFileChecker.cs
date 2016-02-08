@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Xml.Serialization;
-using PlexListener.XMLContainers;
+using PlexListener.PMS.XMLContainers;
 
-namespace PlexListener.WebCommunication
+namespace PlexListener.PMS.WebCommunication
 {
     public class PlexFileChecker
     {

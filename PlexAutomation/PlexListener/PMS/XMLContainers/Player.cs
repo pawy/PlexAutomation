@@ -1,7 +1,7 @@
 ﻿
 using System.Xml.Serialization;
 
-namespace PlexListener.XMLContainers
+namespace PlexListener.PMS.XMLContainers
 {
     [XmlType("Player")]
     public class Player

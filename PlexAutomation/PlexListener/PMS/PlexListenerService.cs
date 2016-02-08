@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
-using PlexListener.WebCommunication;
-using PlexListener.XMLContainers;
+using PlexListener.Notification;
+using PlexListener.PMS.WebCommunication;
+using PlexListener.PMS.XMLContainers;
 
-namespace PlexListener
+namespace PlexListener.PMS
 {
     public class PlexListenerService : IPLexListener, IDisposable
     {

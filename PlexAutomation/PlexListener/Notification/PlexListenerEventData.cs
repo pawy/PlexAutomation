@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PlexListener
+﻿namespace PlexListener.Notification
 {
     public class PlexListenerEventData
     {

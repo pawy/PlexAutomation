@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlexListener
+namespace PlexListener.Notification
 {
     public class PlexNotificationEventArgs : EventArgs
     {

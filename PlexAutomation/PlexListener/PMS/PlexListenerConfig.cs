@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PlexListener
+namespace PlexListener.PMS
 {
     public class PlexListenerConfig
     {

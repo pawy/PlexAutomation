@@ -1,4 +1,4 @@
-﻿namespace PlexListener
+﻿namespace PlexListener.Notification
 {
     public enum EventType
     {
