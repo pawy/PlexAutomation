@@ -28,11 +28,21 @@ namespace PlexAutomation
 
         private static void OnNewNotification(object sender, PlexNotificationEventArgs e)
         {
-            Console.WriteLine(String.Format("{0}", e.PlexListenerEventData.EventType));
+            Console.WriteLine("{0}", e.PlexListenerEventData.EventType);
 
             Notificators.EventType notificationEvent;
             Enum.TryParse(e.PlexListenerEventData.EventType.ToString(), out notificationEvent);
-            _myStromNotifier.Notify(notificationEvent);
+
+            try
+            {
+                _myStromNotifier.Notify(notificationEvent);
+                Console.WriteLine("Notified MyStrom");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unable to Notify MyStrom: {0}", ex.Message);
+            }
+            
         }
     }
 }
