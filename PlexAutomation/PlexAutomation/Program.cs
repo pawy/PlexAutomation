@@ -19,7 +19,7 @@ namespace PlexAutomation
             };
 
             //Create Listener
-            var listener = new PlexListenerService("192.16.8.1.31");
+            var listener = new PlexListenerService("192.168.1.31");
 
             var plexAutomation = new PlexAutomationBroker(listener, notifiers);
             plexAutomation.OnMessage += Console.WriteLine;
