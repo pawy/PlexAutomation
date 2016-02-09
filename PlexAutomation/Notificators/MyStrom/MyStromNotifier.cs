@@ -5,11 +5,11 @@ namespace Notificators.MyStrom
 {
     public class MyStromNotifier : INotifier
     {
-        public Uri DeviceUri { get; private set; }
+        public string SwitchIp { get; private set; }
 
-        public MyStromNotifier(Uri deviceUri)
+        public MyStromNotifier(string switchIp)
         {
-            DeviceUri = deviceUri;
+            SwitchIp = switchIp;
         }
 
         public void Notify(EventType eventType)
@@ -23,6 +23,11 @@ namespace Notificators.MyStrom
                     TurnOn();
                     break;
             }
+        }
+
+        public string GetDisplayName()
+        {
+            return string.Format("MyStrom Switch {0}", SwitchIp);
         }
 
         private void TurnOff()
@@ -39,7 +44,7 @@ namespace Notificators.MyStrom
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = DeviceUri;
+                client.BaseAddress = new Uri(string.Format("http://{0}", SwitchIp));
                 await client.GetAsync(getParams);
             }
         }

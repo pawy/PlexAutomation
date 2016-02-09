@@ -6,7 +6,7 @@ namespace PlexListener.PMS
     public class PlexListenerConfig
     {
         /// <summary>
-        /// 
+        /// Create a new Plex Listener Configuration
         /// </summary>
         /// <param name="serverUri">The url of the server interface (e.g.: http://127.0.0.1:3400)</param>
         public PlexListenerConfig(Uri serverUri)

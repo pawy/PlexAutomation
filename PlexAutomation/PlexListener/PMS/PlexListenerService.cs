@@ -16,8 +16,6 @@ namespace PlexListener.PMS
 
         private PlexListenerEventData _lastEventData;
 
-        private readonly PlexFileChecker _plexFileChecker;
-
         public PlexListenerService(PlexListenerConfig configuration)
         {
             _plexWebChecker = new PlexWebChecker(new Uri(string.Format("{0}/status/sessions",configuration.ServerUri)));
@@ -27,8 +25,6 @@ namespace PlexListener.PMS
             _timer.Interval = 5000;
             _timer.AutoReset = true;
             _timer.Elapsed += OnTimerElapsed;
-
-            _plexFileChecker = new PlexFileChecker(configuration.ServerUri);
         }
 
         public void StartListener()
@@ -50,8 +46,7 @@ namespace PlexListener.PMS
                 return;
             }
 
-            //PlexListenerEventData eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
-            PlexListenerEventData eventData = CreateEventDataFromMediaContainer(_plexFileChecker.Check());
+            PlexListenerEventData eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
 
             if (_lastEventData == null || _lastEventData.EventType != eventData.EventType)
             {

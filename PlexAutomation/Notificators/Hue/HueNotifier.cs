@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
+using Notificators.Hue.MessageObjects;
 
 namespace Notificators.Hue
 {
     public class HueNotifier : INotifier
     {
         public string BridgeIp { get; private set; }
-        public List<int> Lamps { get; private set; } 
+        public List<int> Lamps { get; private set; }
 
-        public HueNotifier(string bridgeIp, List<int> lamps)
+        public State StateConfiguration { get; private set; }
+
+        public HueNotifier(string bridgeIp, List<int> lamps, State lampStateConfiguration = null)
         {
             BridgeIp = bridgeIp;
             Lamps = lamps;
+            StateConfiguration = lampStateConfiguration ?? State.LightBlue;
         }
 
         public void Notify(EventType eventType)
@@ -30,17 +33,22 @@ namespace Notificators.Hue
             }
         }
 
+        public string GetDisplayName()
+        {
+            return string.Format("Hue Lamps {0}", string.Join(", ", Lamps));
+        }
+
         private void TurnOff()
         {
-            PostRequest("{\"on\":false}");
+            PostRequest(State.Off);
         }
 
         private void TurnOn()
         {
-            PostRequest("{\"on\":true}");
+            PostRequest(StateConfiguration);
         }
 
-        private async void PostRequest(string data)
+        private async void PostRequest(State state)
         {
             using (var client = new HttpClient())
             {
@@ -48,7 +56,7 @@ namespace Notificators.Hue
 
                 foreach (int lamp in Lamps)
                 {
-                    StringContent content = new System.Net.Http.StringContent(data, Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(state.ToJson(), Encoding.UTF8, "application/json");
                     await client.PutAsync(string.Format("{0}/state",lamp),content);
                 }
             }

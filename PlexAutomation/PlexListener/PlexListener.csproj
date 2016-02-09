@@ -45,7 +45,6 @@
     <Compile Include="PMC\XMLContainers\MediaContainer.cs" />
     <Compile Include="PMC\XMLContainers\Timeline.cs" />
     <Compile Include="PMS\PlexListenerService.cs" />
-    <Compile Include="PMS\WebCommunication\PlexFileChecker.cs" />
     <Compile Include="PMS\WebCommunication\PlexWebChecker.cs" />
     <Compile Include="PMS\XMLContainers\User.cs" />
     <Compile Include="PMS\XMLContainers\MediaContainer.cs" />

@@ -20,7 +20,7 @@ namespace PlexListener.PMC
             _plexWebChecker = new PlexWebChecker(new Uri(string.Format("http://{0}:3005/player/timeline/poll?commandID=1245", clientIp)));
 
             _timer = new Timer();
-            _timer.Interval = 3000;
+            _timer.Interval = 5000;
             _timer.AutoReset = true;
             _timer.Elapsed += OnTimerElapsed;
         }
