@@ -36,8 +36,15 @@ namespace PlexAutomation
 
             foreach (INotifier notifier in Notifiers)
             {
-                notifier.Notify(notificationEvent);
-                SendMessage(string.Format("Notified {0}", notifier.GetDisplayName()));
+                try
+                {
+                    notifier.Notify(notificationEvent);
+                    SendMessage(string.Format("Notified {0}", notifier.GetDisplayName()));
+                }
+                catch (Exception ex)
+                {
+                    SendMessage(string.Format("Unable to notify {0}: {1}", notifier.GetDisplayName(), ex.Message));
+                }
             }
         }
 
