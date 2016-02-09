@@ -3,6 +3,7 @@
     public enum EventType
     {
         Playing,
-        NotPlaying
+        NotPlaying,
+        Error
     }
 }

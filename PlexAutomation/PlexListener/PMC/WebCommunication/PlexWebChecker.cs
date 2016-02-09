@@ -31,7 +31,7 @@ namespace PlexListener.PMC.WebCommunication
                 return mediaContainer;
             }
 
-            throw new Exception(((HttpWebResponse)response).StatusCode.ToString());
+            throw new Exception(string.Format("ResponseCode: {0}", ((HttpWebResponse)response).StatusCode));
         }
     }
 }

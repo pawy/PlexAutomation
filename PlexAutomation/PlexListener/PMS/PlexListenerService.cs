@@ -46,12 +46,26 @@ namespace PlexListener.PMS
                 return;
             }
 
-            PlexListenerEventData eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
-
-            if (_lastEventData == null || _lastEventData.EventType != eventData.EventType)
+            PlexListenerEventData eventData = null;
+            try
             {
-                _lastEventData = eventData;
-                Notify(eventData);
+                eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
+            }
+            catch (Exception ex)
+            {
+                eventData = new PlexListenerEventData
+                {
+                    EventType = EventType.Error,
+                    ErrorMessage = ex.Message
+                };
+            }
+            finally
+            {
+                if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
+                {
+                    _lastEventData = eventData;
+                    Notify(eventData);
+                }
             }
         }
 

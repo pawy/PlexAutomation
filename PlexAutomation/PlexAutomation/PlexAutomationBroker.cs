@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Notificators;
 using PlexListener;
 using PlexListener.Notification;
+using EventType = PlexListener.Notification.EventType;
 
 namespace PlexAutomation
 {
@@ -29,6 +30,12 @@ namespace PlexAutomation
 
         private void OnNewNotification(object sender, PlexNotificationEventArgs e)
         {
+            if (e.PlexListenerEventData.EventType == EventType.Error)
+            {
+                SendMessage(string.Format("Error: {0}", e.PlexListenerEventData.ErrorMessage));
+                return;
+            }
+
             SendMessage(string.Format("Event: {0}",e.PlexListenerEventData.EventType));
 
             Notificators.EventType notificationEvent;
