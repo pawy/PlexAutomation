@@ -72,8 +72,6 @@ namespace PlexListener.PMS
 
         private PlexListenerEventData CreateEventDataFromMediaContainer(MediaContainer mediaContainer)
         {
-
-
             if (
                 mediaContainer.Photos.Any(photo => !Configuration.PlayerIps.Any() || Configuration.PlayerIps.Contains(photo.Player.Address)) ||
                 mediaContainer.Videos.Any(video => video.Player.State == "playing" && (!Configuration.PlayerIps.Any() || Configuration.PlayerIps.Contains(video.Player.Address))))

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HueAutomationBroker.cs" />
     <Compile Include="PlexAutomationBroker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -49,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HueListener\HueListener.csproj">
+      <Project>{cf3964e2-5504-4ee8-89e4-84f81ee78146}</Project>
+      <Name>HueListener</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Notificators\Notificators.csproj">
       <Project>{15667a0d-b4c9-4ac2-8439-4a891b785d91}</Project>
       <Name>Notificators</Name>

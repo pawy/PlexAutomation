@@ -48,7 +48,7 @@ namespace Notificators.Hue
             PostRequest(StateConfiguration);
         }
 
-        private async void PostRequest(State state)
+        private void PostRequest(State state)
         {
             using (var client = new HttpClient())
             {
@@ -57,7 +57,7 @@ namespace Notificators.Hue
                 foreach (int lamp in Lamps)
                 {
                     StringContent content = new StringContent(state.ToJson(), Encoding.UTF8, "application/json");
-                    await client.PutAsync(string.Format("{0}/state",lamp),content);
+                    client.PutAsync(string.Format("{0}/state",lamp),content).Wait();
                 }
             }
         }

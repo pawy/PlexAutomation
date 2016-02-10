@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15667A0D-B4C9-4AC2-8439-4A891B785D91}</ProjectGuid>
+    <ProjectGuid>{CF3964E2-5504-4EE8-89E4-84F81EE78146}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Notificators</RootNamespace>
-    <AssemblyName>Notificators</AssemblyName>
+    <RootNamespace>HueListener</RootNamespace>
+    <AssemblyName>HueListener</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,17 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hue\HueNotifier.cs" />
-    <Compile Include="Hue\MessageObjects\BaseMessage.cs" />
-    <Compile Include="Hue\MessageObjects\State.cs" />
-    <Compile Include="EventType.cs" />
-    <Compile Include="INotifier.cs" />
-    <Compile Include="MyStrom\MyStromNotifier.cs" />
+    <Compile Include="HueListenerService.cs" />
+    <Compile Include="IHueListener.cs" />
+    <Compile Include="MessageObjects\Light.cs" />
+    <Compile Include="Notification\EventType.cs" />
+    <Compile Include="Notification\HueListenerEventData.cs" />
+    <Compile Include="Notification\HueNotificationEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MessageObjects\State.cs" />
+    <Compile Include="WebCommunication\HueWebChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

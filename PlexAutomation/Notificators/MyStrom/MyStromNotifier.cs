@@ -40,12 +40,12 @@ namespace Notificators.MyStrom
             GetRequest("relay?state=1");
         }
 
-        private async void GetRequest(string getParams)
+        private void GetRequest(string getParams)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(string.Format("http://{0}", SwitchIp));
-                await client.GetAsync(getParams);
+                client.GetAsync(getParams).Wait();
             }
         }
     }
