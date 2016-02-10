@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using HueListener;
 using HueListener.Notification;
 using Notificators;
-using PlexListener;
-using PlexListener.Notification;
 using EventType = HueListener.Notification.EventType;
 
 namespace PlexAutomation
