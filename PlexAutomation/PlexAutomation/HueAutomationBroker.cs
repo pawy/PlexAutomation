@@ -7,25 +7,35 @@ using EventType = HueListener.Notification.EventType;
 
 namespace PlexAutomation
 {
-    public class HueAutomationBroker
+    public class HueAutomationBroker : IBroker
     {
         public IHueListener HueListener { get; private set; }
 
         public List<INotifier> Notifiers { get; private set; }
 
+        public List<IBroker> Brokers { get; private set; }
+
         public delegate void MessageEventHandler(string message);
         public event MessageEventHandler OnMessage;
 
-        public HueAutomationBroker(IHueListener hueListener, List<INotifier> notifiers)
+        public HueAutomationBroker(IHueListener hueListener, List<INotifier> notifiers, List<IBroker> brokers)
         {
             Notifiers = notifiers;
+            Brokers = brokers;
             HueListener = hueListener;
+            HueListener.OnNewNotification += OnNewNotification;
         }
 
         public void Start()
         {
-            HueListener.OnNewNotification += OnNewNotification;
             HueListener.StartListener();
+            SendMessage("Hue Automation Broker started");
+        }
+
+        public void Stop()
+        {
+            HueListener.StartListener();
+            SendMessage("Hue Automation Broker stopped");
         }
 
         private void OnNewNotification(object sender, HueNotificationEventArgs e)
@@ -38,20 +48,30 @@ namespace PlexAutomation
 
             SendMessage(string.Format("Event: {0}",e.HueListenerEventData.EventType));
 
-           //Send a NotPlaying Event when the Hue is turned on -> Hue Go blue, MyStrom goes on too
+            //Send a NotPlaying Event when the Hue is turned on -> Hue Go blue, MyStrom goes on too
+            Notificators.EventType notificationEvent;
+
             if (e.HueListenerEventData.EventType == EventType.On)
             {
-                foreach (INotifier notifier in Notifiers)
+                notificationEvent = Notificators.EventType.NotPlaying;
+                Brokers.ForEach(x => x.Start());
+            }
+            else
+            {
+                notificationEvent = Notificators.EventType.Playing;
+                Brokers.ForEach(x => x.Stop());
+            }
+
+            foreach (INotifier notifier in Notifiers)
+            {
+                try
                 {
-                    try
-                    {
-                        notifier.Notify(Notificators.EventType.NotPlaying);
-                        SendMessage(string.Format("Notified {0}", notifier.GetDisplayName()));
-                    }
-                    catch (Exception ex)
-                    {
-                        SendMessage(string.Format("Unable to notify {0}: {1}", notifier.GetDisplayName(), ex.Message));
-                    }
+                    notifier.Notify(notificationEvent);
+                    SendMessage(string.Format("Notified {0}", notifier.GetDisplayName()));
+                }
+                catch (Exception ex)
+                {
+                    SendMessage(string.Format("Unable to notify {0}: {1}", notifier.GetDisplayName(), ex.Message));
                 }
             }
         }

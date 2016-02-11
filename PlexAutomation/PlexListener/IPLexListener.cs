@@ -7,6 +7,8 @@ namespace PlexListener
     {
         void StartListener();
 
+        void StopListener();
+
         event EventHandler<PlexNotificationEventArgs> OnNewNotification;
     }
 }

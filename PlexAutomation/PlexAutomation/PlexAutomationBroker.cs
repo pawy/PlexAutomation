@@ -7,7 +7,7 @@ using EventType = PlexListener.Notification.EventType;
 
 namespace PlexAutomation
 {
-    public class PlexAutomationBroker
+    public class PlexAutomationBroker : IBroker
     {
         public IPLexListener PLexListener { get; private set; }
 
@@ -20,12 +20,19 @@ namespace PlexAutomation
         {
             Notifiers = notifiers;
             PLexListener = plexListener;
+            PLexListener.OnNewNotification += OnNewNotification;
         }
 
         public void Start()
-        {
-            PLexListener.OnNewNotification += OnNewNotification;
+        {   
             PLexListener.StartListener();
+            SendMessage("Plex Automation Broker started");
+        }
+
+        public void Stop()
+        {
+            PLexListener.StopListener();
+            SendMessage("Plex Automation Broker stopped");
         }
 
         private void OnNewNotification(object sender, PlexNotificationEventArgs e)

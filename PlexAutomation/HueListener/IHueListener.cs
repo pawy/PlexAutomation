@@ -7,6 +7,8 @@ namespace HueListener
     {
         void StartListener();
 
+        void StopListener();
+
         event EventHandler<HueNotificationEventArgs> OnNewNotification;
     }
 }

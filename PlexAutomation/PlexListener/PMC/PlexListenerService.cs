@@ -30,6 +30,11 @@ namespace PlexListener.PMC
             _timer.Start();
         }
 
+        public void StopListener()
+        {
+            _timer.Stop();
+        }
+
         private void OnTimerElapsed(object sender, ElapsedEventArgs e)
         {
             Check();
