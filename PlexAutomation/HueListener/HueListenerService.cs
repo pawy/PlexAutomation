@@ -78,7 +78,15 @@ namespace HueListener
 
         private HueListenerEventData CreateEventDataFromLight(Light light)
         {
-            if (light.State.On && light.State.Reachable)
+            if (!light.State.Reachable)
+            {
+                return new HueListenerEventData
+                {
+                    EventType = EventType.NotReachable
+                };
+            }
+
+            if (light.State.On)
             {
                 return new HueListenerEventData
                 {

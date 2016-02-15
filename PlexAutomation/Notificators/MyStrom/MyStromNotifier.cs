@@ -42,10 +42,27 @@ namespace Notificators.MyStrom
 
         private void GetRequest(string getParams)
         {
-            using (var client = new HttpClient())
+            bool done = false;
+            int retries = 0;
+            while (done == false)
             {
-                client.BaseAddress = new Uri(string.Format("http://{0}", SwitchIp));
-                client.GetAsync(getParams).Wait();
+                try
+                {
+                    using (var client = new HttpClient())
+                    {
+                        client.Timeout = new TimeSpan(0, 0, 5);
+                        client.BaseAddress = new Uri(string.Format("http://{0}", SwitchIp));
+                        client.GetAsync(getParams).Wait();
+                        done = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    if (retries == 3)
+                        throw;
+
+                    retries++;
+                }
             }
         }
     }

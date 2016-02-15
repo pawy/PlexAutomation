@@ -4,6 +4,7 @@
     {
         On,
         Off,
+        NotReachable,
         Error
     }
 }

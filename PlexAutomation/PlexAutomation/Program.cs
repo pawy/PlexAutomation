@@ -67,7 +67,7 @@ namespace PlexAutomation
             //Create Listener
             var listener = new HueListenerService("192.168.1.32", 11);
 
-            var hueAutomation = new HueAutomationBroker(listener, notifiers, new List<IBroker>{ plexAutomation });
+            var hueAutomation = new HueAutomationBroker(listener, notifiers, new List<IBroker> { plexAutomation });
             hueAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return hueAutomation;

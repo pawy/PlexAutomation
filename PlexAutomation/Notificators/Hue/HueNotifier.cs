@@ -53,7 +53,7 @@ namespace Notificators.Hue
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(string.Format("http://{0}/api/newdeveloper/lights/",BridgeIp));
-
+                client.Timeout = new TimeSpan(0,0,5);
                 foreach (int lamp in Lamps)
                 {
                     StringContent content = new StringContent(state.ToJson(), Encoding.UTF8, "application/json");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using HueListener;
 using HueListener.Notification;
 using Notificators;
@@ -49,19 +50,20 @@ namespace PlexAutomation
             SendMessage(string.Format("Event: {0}",e.HueListenerEventData.EventType));
 
             //Send a NotPlaying Event when the Hue is turned on -> Hue Go blue, MyStrom goes on too
-            Notificators.EventType notificationEvent;
-
             if (e.HueListenerEventData.EventType == EventType.On)
             {
-                notificationEvent = Notificators.EventType.NotPlaying;
+                Notify(Notificators.EventType.NotPlaying);
                 Brokers.ForEach(x => x.Start());
             }
-            else
+            else if(e.HueListenerEventData.EventType == EventType.NotReachable)
             {
-                notificationEvent = Notificators.EventType.Playing;
+                Notify(Notificators.EventType.Playing);
                 Brokers.ForEach(x => x.Stop());
             }
+        }
 
+        private void Notify(Notificators.EventType notificationEvent)
+        {
             foreach (INotifier notifier in Notifiers)
             {
                 try
