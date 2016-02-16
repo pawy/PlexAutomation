@@ -34,6 +34,7 @@ namespace PlexListener.PMS
 
         public void StopListener()
         {
+            _lastEventData = null;
             _timer.Stop();
         }
 

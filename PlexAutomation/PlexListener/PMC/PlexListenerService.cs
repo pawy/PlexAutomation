@@ -32,6 +32,7 @@ namespace PlexListener.PMC
 
         public void StopListener()
         {
+            _lastEventData = null;
             _timer.Stop();
         }
 
