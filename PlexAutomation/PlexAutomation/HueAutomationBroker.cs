@@ -49,16 +49,14 @@ namespace PlexAutomation
 
             SendMessage(string.Format("Event: {0}",e.HueListenerEventData.EventType));
 
-            //Send a NotPlaying Event when the Hue is turned on -> Hue Go blue, MyStrom goes on too
             if (e.HueListenerEventData.EventType == EventType.On)
             {
-                Notify(Notificators.EventType.NotPlaying);
                 Brokers.ForEach(x => x.Start());
             }
             else if(e.HueListenerEventData.EventType == EventType.NotReachable)
             {
-                Notify(Notificators.EventType.Playing);
                 Brokers.ForEach(x => x.Stop());
+                Notify(Notificators.EventType.TurnOff);
             }
         }
 

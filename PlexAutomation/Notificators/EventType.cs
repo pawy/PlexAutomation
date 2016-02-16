@@ -2,7 +2,7 @@
 {
     public enum EventType
     {
-        Playing,
-        NotPlaying
+        TurnOff,
+        TurnOn
     }
 }

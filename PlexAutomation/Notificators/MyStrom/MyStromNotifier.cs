@@ -16,10 +16,10 @@ namespace Notificators.MyStrom
         {
             switch (eventType)
             {
-                case EventType.Playing:
+                case EventType.TurnOff:
                     TurnOff();
                     break;
-                case EventType.NotPlaying:
+                case EventType.TurnOn:
                     TurnOn();
                     break;
             }
@@ -50,8 +50,9 @@ namespace Notificators.MyStrom
                 {
                     using (var client = new HttpClient())
                     {
-                        client.Timeout = new TimeSpan(0, 0, 5);
                         client.BaseAddress = new Uri(string.Format("http://{0}", SwitchIp));
+                        client.Timeout = new TimeSpan(0, 0, 5);
+                        client.GetAsync("report").Wait();
                         client.GetAsync(getParams).Wait();
                         done = true;
                     }

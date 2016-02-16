@@ -31,18 +31,17 @@ namespace PlexAutomation
         }
 
         /// <summary>
-        /// If plex starts playing turn off lights, if it stops turn on lights
+        /// If plex starts playing turn off lights
+        /// If plex stops playing turn on lights
         /// </summary>
         private static PlexAutomationBroker InitializePlexListener(ConsoleColor consoleColor)
         {
-            //Create Notifiers
             var notifiers = new List<INotifier>
             {
                 new HueNotifier("192.168.1.32", new List<int> {11, 12}),
                 new MyStromNotifier("192.168.1.27")
             };
 
-            //Create Listener
             var listener = new PlexListenerService("192.168.1.31");
 
             var plexAutomation = new PlexAutomationBroker(listener, notifiers);
@@ -52,19 +51,17 @@ namespace PlexAutomation
         }
 
         /// <summary>
-        /// If hue is turned on, then turn two lamps blue and enable MyStrom
-        /// Also turn on the PlexListener
+        /// If hue is turned on, then turn on the PlexListener
+        /// If hue is turned off, then turn off MyStrom and PlexListener
         /// </summary>
         private static HueAutomationBroker InitializeHueListner(ConsoleColor consoleColor, PlexAutomationBroker plexAutomation)
         {
-            //Create Notifiers
             var notifiers = new List<INotifier>
             {
                 new HueNotifier("192.168.1.32", new List<int> {11, 12}),
                 new MyStromNotifier("192.168.1.27")
             };
 
-            //Create Listener
             var listener = new HueListenerService("192.168.1.32", 11);
 
             var hueAutomation = new HueAutomationBroker(listener, notifiers, new List<IBroker> { plexAutomation });

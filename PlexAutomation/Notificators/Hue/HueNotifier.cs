@@ -24,10 +24,10 @@ namespace Notificators.Hue
         {
             switch (eventType)
             {
-                case EventType.Playing:
+                case EventType.TurnOff:
                     TurnOff();
                     break;
-                case EventType.NotPlaying:
+                case EventType.TurnOn:
                     TurnOn();
                     break;
             }
