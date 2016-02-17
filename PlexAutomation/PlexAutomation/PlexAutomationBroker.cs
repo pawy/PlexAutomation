@@ -45,8 +45,9 @@ namespace PlexAutomation
 
             SendMessage(string.Format("Event: {0}",e.PlexListenerEventData.EventType));
 
-            Notificators.EventType notificationEvent;
-            Enum.TryParse(e.PlexListenerEventData.EventType.ToString(), out notificationEvent);
+            Notificators.EventType notificationEvent = e.PlexListenerEventData.EventType == EventType.Playing
+                ? Notificators.EventType.TurnOff
+                : Notificators.EventType.TurnOn;
 
             foreach (INotifier notifier in Notifiers)
             {
