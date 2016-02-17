@@ -52,6 +52,7 @@ namespace PlexAutomation
             if (e.HueListenerEventData.EventType == EventType.On)
             {
                 Brokers.ForEach(x => x.Start());
+                Notify(Notificators.EventType.TurnOn);
             }
             else if(e.HueListenerEventData.EventType == EventType.NotReachable)
             {

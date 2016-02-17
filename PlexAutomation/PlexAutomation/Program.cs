@@ -21,9 +21,10 @@ namespace PlexAutomation
             Console.WriteLine("Plex-Automation-Client starting...");
 
             PlexAutomationBroker plexAutomation = InitializePlexListener(PlexColor);
-            HueAutomationBroker hueAutomation = InitializeHueListner(HueColor, plexAutomation);
+            HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
 
-            hueAutomation.Start();
+            //hueAutomation.Start();
+            plexAutomation.Start();
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press <ENTER> to stop the Plex-Automation-Client");
@@ -54,7 +55,7 @@ namespace PlexAutomation
         /// If hue is turned on, then turn on the PlexListener
         /// If hue is turned off, then turn off MyStrom and PlexListener
         /// </summary>
-        private static HueAutomationBroker InitializeHueListner(ConsoleColor consoleColor, PlexAutomationBroker plexAutomation)
+        private static HueAutomationBroker InitializeHueListner(ConsoleColor consoleColor, List<IBroker> brokers = null)
         {
             var notifiers = new List<INotifier>
             {
@@ -64,7 +65,8 @@ namespace PlexAutomation
 
             var listener = new HueListenerService("192.168.1.32", 11);
 
-            var hueAutomation = new HueAutomationBroker(listener, notifiers, new List<IBroker> { plexAutomation });
+            brokers = brokers ?? new List<IBroker>();
+            var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers);
             hueAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return hueAutomation;
