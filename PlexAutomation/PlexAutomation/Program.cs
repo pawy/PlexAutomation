@@ -39,7 +39,7 @@ namespace PlexAutomation
         {
             var notifiers = new List<INotifier>
             {
-                new HueNotifier("192.168.1.32", new List<int> {11, 12}),
+                new HueNotifier("192.168.1.32", new List<int> {11}),
                 new MyStromNotifier("192.168.1.27")
             };
 
@@ -59,7 +59,7 @@ namespace PlexAutomation
         {
             var notifiers = new List<INotifier>
             {
-                new HueNotifier("192.168.1.32", new List<int> {11, 12}),
+                new HueNotifier("192.168.1.32", new List<int> {11}),
                 new MyStromNotifier("192.168.1.27")
             };
 
