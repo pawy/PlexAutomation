@@ -23,7 +23,7 @@ namespace PlexAutomation
         private const string PlexIp = "192.168.1.34";
         private const string HueIp = "192.168.1.32";
         private const string TvIp = "192.168.1.25";
-        private const string XboxIp = "192.168.1.24";
+        private const string XboxIp = "192.168.1.28";
         private const string MyStromIp = "192.168.1.27";
 
         private const int CinemaHueLamp = 11;
