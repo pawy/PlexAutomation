@@ -17,19 +17,32 @@ namespace PlexAutomation
 
         private const ConsoleColor PlexColor = ConsoleColor.DarkGreen;
         private const ConsoleColor HueColor = ConsoleColor.Yellow;
-        private const ConsoleColor IPColor = ConsoleColor.Cyan;
+        private const ConsoleColor TvColor = ConsoleColor.Cyan;
+        private const ConsoleColor XboxColor = ConsoleColor.Red;
+
+        private const string PlexIp = "192.168.1.34";
+        private const string HueIp = "192.168.1.32";
+        private const string TvIp = "192.168.1.25";
+        private const string XboxIp = "192.168.1.24";
+        private const string MyStromIp = "192.168.1.27";
+
+        private const int CinemaHueLamp = 11;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Plex-Automation-Client starting...");
 
             PlexAutomationBroker plexAutomation = InitializePlexListener(PlexColor);
-            HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
-            IPAutomationBroker ipAutomation = InitializeIPListener(IPColor);
-
-            //hueAutomation.Start();
             plexAutomation.Start();
-            ipAutomation.Start();
+
+            IPAutomationBroker tvIpAutomation = InitializeTVIpListener(TvColor);
+            tvIpAutomation.Start();
+
+            IPAutomationBroker xboxIpAutomation = InitializeXboxIpListener(XboxColor);
+            xboxIpAutomation.Start();
+
+            //HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
+            //hueAutomation.Start();
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press <ENTER> to stop the Plex-Automation-Client");
@@ -44,11 +57,11 @@ namespace PlexAutomation
         {
             var notifiers = new List<INotifier>
             {
-                new HueNotifier("192.168.1.32", new List<int> {11}),
-                new MyStromNotifier("192.168.1.27")
+                new HueNotifier(HueIp, new List<int> {CinemaHueLamp}),
+                new MyStromNotifier(MyStromIp)
             };
 
-            var listener = new PlexListenerService("192.168.1.34");
+            var listener = new PlexListenerService(PlexIp);
 
             var plexAutomation = new PlexAutomationBroker(listener, notifiers);
             plexAutomation.OnMessage += message => OutputMessage(message, consoleColor);
@@ -60,18 +73,42 @@ namespace PlexAutomation
         /// If TV is turned on, turn off lights
         /// If TV is turned off, turn on lights
         /// </summary>
-        private static IPAutomationBroker InitializeIPListener(ConsoleColor consoleColor)
+        private static IPAutomationBroker InitializeTVIpListener(ConsoleColor consoleColor)
         {
             var notifiers = new List<INotifier>
             {
-                new HueNotifier("192.168.1.32", new List<int> {11}),
-                new MyStromNotifier("192.168.1.27")
+                new HueNotifier(HueIp, new List<int> {CinemaHueLamp}),
+                new MyStromNotifier(MyStromIp)
             };
 
-            var listener = new IPListenerService("192.168.1.25");
+            var listener = new IPListenerService(TvIp);
 
             var ipAutomation = new IPAutomationBroker(listener, notifiers);
             ipAutomation.OnMessage += message => OutputMessage(message, consoleColor);
+
+            OutputMessage(string.Format("Tv {0}", TvIp), consoleColor);
+
+            return ipAutomation;
+        }
+
+        /// <summary>
+        /// If Xbox is turned on, turn off lights
+        /// If Xbox is turned off, turn on lights
+        /// </summary>
+        private static IPAutomationBroker InitializeXboxIpListener(ConsoleColor consoleColor)
+        {
+            var notifiers = new List<INotifier>
+            {
+                new HueNotifier(HueIp, new List<int> {CinemaHueLamp}),
+                new MyStromNotifier(MyStromIp)
+            };
+
+            var listener = new IPListenerService(XboxIp);
+
+            var ipAutomation = new IPAutomationBroker(listener, notifiers);
+            ipAutomation.OnMessage += message => OutputMessage(message, consoleColor);
+
+            OutputMessage(string.Format("Xbox {0}", XboxIp), consoleColor);
 
             return ipAutomation;
         }
@@ -85,11 +122,11 @@ namespace PlexAutomation
         {
             var notifiers = new List<INotifier>
             {
-                new HueNotifier("192.168.1.32", new List<int> {11}),
-                new MyStromNotifier("192.168.1.27")
+                new HueNotifier(HueIp, new List<int> {CinemaHueLamp}),
+                new MyStromNotifier(MyStromIp)
             };
 
-            var listener = new HueListenerService("192.168.1.32", 11);
+            var listener = new HueListenerService(HueIp, CinemaHueLamp);
 
             brokers = brokers ?? new List<IBroker>();
             var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers);

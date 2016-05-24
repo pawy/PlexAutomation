@@ -14,8 +14,6 @@ namespace PlexAutomation
 
         public List<INotifier> Notifiers { get; private set; }
 
-        public List<IBroker> Brokers { get; private set; }
-
         public delegate void MessageEventHandler(string message);
         public event MessageEventHandler OnMessage;
 
@@ -34,7 +32,7 @@ namespace PlexAutomation
 
         public void Stop()
         {
-            IPListener.StartListener();
+            IPListener.StopListener();
             SendMessage("IP Automation Broker stopped");
         }
 
