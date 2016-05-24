@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E4A9A64C-C54F-4658-95FE-E228422796CC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{8B06D67E-D966-481E-A228-D4315E31FB2E}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlexAutomation</RootNamespace>
-    <AssemblyName>PlexAutomation</AssemblyName>
+    <RootNamespace>IPListener</RootNamespace>
+    <AssemblyName>IPListener</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,33 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPAutomationBroker.cs" />
-    <Compile Include="HueAutomationBroker.cs" />
-    <Compile Include="IBroker.cs" />
-    <Compile Include="PlexAutomationBroker.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="IPListenerService.cs" />
+    <Compile Include="IIpListener.cs" />
+    <Compile Include="Notification\EventType.cs" />
+    <Compile Include="Notification\IPListenerEventData.cs" />
+    <Compile Include="Notification\IPNotificationEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HueListener\HueListener.csproj">
-      <Project>{cf3964e2-5504-4ee8-89e4-84f81ee78146}</Project>
-      <Name>HueListener</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IPListener\IPListener.csproj">
-      <Project>{8b06d67e-d966-481e-a228-d4315e31fb2e}</Project>
-      <Name>IPListener</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Notificators\Notificators.csproj">
-      <Project>{15667a0d-b4c9-4ac2-8439-4a891b785d91}</Project>
-      <Name>Notificators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlexListener\PlexListener.csproj">
-      <Project>{89e3182f-be10-4f4f-92a6-3b05940b0ede}</Project>
-      <Name>PlexListener</Name>
-    </ProjectReference>
+    <Compile Include="Communication\IPChecker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

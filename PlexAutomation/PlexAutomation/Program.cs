@@ -5,6 +5,7 @@ using Notificators;
 using Notificators.Hue;
 using Notificators.MyStrom;
 using PlexListener.PMC;
+using IPListener;
 
 namespace PlexAutomation
 {
@@ -12,9 +13,11 @@ namespace PlexAutomation
     {
         private static PlexAutomationBroker _plexAutomationBroker;
         private static HueAutomationBroker _huerHueAutomationBroker;
+        private static IPAutomationBroker _ipAutomationBroker;
 
         private const ConsoleColor PlexColor = ConsoleColor.DarkGreen;
         private const ConsoleColor HueColor = ConsoleColor.Yellow;
+        private const ConsoleColor IPColor = ConsoleColor.Cyan;
 
         static void Main(string[] args)
         {
@@ -22,9 +25,11 @@ namespace PlexAutomation
 
             PlexAutomationBroker plexAutomation = InitializePlexListener(PlexColor);
             HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
+            IPAutomationBroker ipAutomation = InitializeIPListener(IPColor);
 
             //hueAutomation.Start();
             plexAutomation.Start();
+            ipAutomation.Start();
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press <ENTER> to stop the Plex-Automation-Client");
@@ -43,13 +48,34 @@ namespace PlexAutomation
                 new MyStromNotifier("192.168.1.27")
             };
 
-            var listener = new PlexListenerService("192.168.1.31");
+            var listener = new PlexListenerService("192.168.1.34");
 
             var plexAutomation = new PlexAutomationBroker(listener, notifiers);
             plexAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return plexAutomation;
         }
+
+        /// <summary>
+        /// If TV is turned on, turn off lights
+        /// If TV is turned off, turn on lights
+        /// </summary>
+        private static IPAutomationBroker InitializeIPListener(ConsoleColor consoleColor)
+        {
+            var notifiers = new List<INotifier>
+            {
+                new HueNotifier("192.168.1.32", new List<int> {11}),
+                new MyStromNotifier("192.168.1.27")
+            };
+
+            var listener = new IPListenerService("192.168.1.25");
+
+            var ipAutomation = new IPAutomationBroker(listener, notifiers);
+            ipAutomation.OnMessage += message => OutputMessage(message, consoleColor);
+
+            return ipAutomation;
+        }
+
 
         /// <summary>
         /// If hue is turned on, then turn on the PlexListener

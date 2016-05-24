@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notificators", "Notificator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueListener", "HueListener\HueListener.csproj", "{CF3964E2-5504-4EE8-89E4-84F81EE78146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPListener", "IPListener\IPListener.csproj", "{8B06D67E-D966-481E-A228-D4315E31FB2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CF3964E2-5504-4EE8-89E4-84F81EE78146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF3964E2-5504-4EE8-89E4-84F81EE78146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF3964E2-5504-4EE8-89E4-84F81EE78146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B06D67E-D966-481E-A228-D4315E31FB2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B06D67E-D966-481E-A228-D4315E31FB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B06D67E-D966-481E-A228-D4315E31FB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B06D67E-D966-481E-A228-D4315E31FB2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
