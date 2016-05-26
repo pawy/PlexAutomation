@@ -13,7 +13,7 @@ namespace IPListener.Communication
         {
             Ping p = new Ping();
             PingReply reply = p.Send(_ip, 3000);
-            if (reply.Status == IPStatus.Success || reply.Status == IPStatus.TimedOut)
+            if (reply.Status == IPStatus.Success)
             {
                 return true;
             }
