@@ -20,7 +20,7 @@ namespace PlexAutomation
         private const ConsoleColor TvColor = ConsoleColor.Cyan;
         private const ConsoleColor XboxColor = ConsoleColor.Red;
 
-        private const string PlexIp = "192.168.1.34";
+        private const string PlexIp = "192.168.1.40";
         private const string HueIp = "192.168.1.32";
         private const string TvIp = "192.168.1.25";
         private const string XboxIp = "192.168.1.28";
