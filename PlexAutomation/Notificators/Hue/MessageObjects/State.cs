@@ -34,10 +34,10 @@ namespace Notificators.Hue.MessageObjects
             {
                 return new State
                 {
-                    Brightness = 150,
+                    Brightness = 255,
                     On = true,
-                    X = 0.2531,
-                    Y = 0.2098
+                    X = 0.2038,
+                    Y = 0.4767
                 };
             }
         }
