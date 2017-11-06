@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlexAutomation</RootNamespace>
     <AssemblyName>PlexAutomation</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +45,7 @@
     <Compile Include="IPAutomationBroker.cs" />
     <Compile Include="HueAutomationBroker.cs" />
     <Compile Include="IBroker.cs" />
+    <Compile Include="DenonAutomationBroker.cs" />
     <Compile Include="PlexAutomationBroker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,6 +54,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DenonListener\DenonListener.csproj">
+      <Project>{d017e570-915a-4ed0-9418-828bfeb40a1e}</Project>
+      <Name>DenonListener</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HueListener\HueListener.csproj">
       <Project>{cf3964e2-5504-4ee8-89e4-84f81ee78146}</Project>
       <Name>HueListener</Name>

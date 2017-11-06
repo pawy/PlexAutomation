@@ -5,6 +5,7 @@ using Notificators;
 using Notificators.Hue;
 using Notificators.MyStrom;
 using PlexListener.PMC;
+using DenonListener;
 using IPListener;
 
 namespace PlexAutomation
@@ -14,19 +15,23 @@ namespace PlexAutomation
         private static PlexAutomationBroker _plexAutomationBroker;
         private static HueAutomationBroker _huerHueAutomationBroker;
         private static IPAutomationBroker _ipAutomationBroker;
+        private static DenonAutomationBroker _denonAutomationBroker;
 
         private const ConsoleColor PlexColor = ConsoleColor.DarkGreen;
         private const ConsoleColor HueColor = ConsoleColor.Yellow;
         private const ConsoleColor TvColor = ConsoleColor.Cyan;
         private const ConsoleColor XboxColor = ConsoleColor.Red;
+        private const ConsoleColor DenonColor = ConsoleColor.Magenta;
 
         private const string PlexIp = "192.168.1.40";
         private const string HueIp = "192.168.1.32";
         private const string TvIp = "192.168.1.25";
-        private const string XboxIp = "192.168.1.28";
+        private const string XboxIp = "192.168.1.37";
         private const string MyStromIp = "192.168.1.31";
+        private const string DenonIp = "192.168.1.24";
 
         private const int CinemaHueLamp = 24;
+        private const int KellerHueLamp = 6;
 
         static void Main(string[] args)
         {
@@ -35,14 +40,17 @@ namespace PlexAutomation
             PlexAutomationBroker plexAutomation = InitializePlexListener(PlexColor);
             plexAutomation.Start();
 
-            IPAutomationBroker tvIpAutomation = InitializeTVIpListener(TvColor);
-            tvIpAutomation.Start();
+            //IPAutomationBroker tvIpAutomation = InitializeTVIpListener(TvColor);
+            //tvIpAutomation.Start();
 
-            IPAutomationBroker xboxIpAutomation = InitializeXboxIpListener(XboxColor);
-            xboxIpAutomation.Start();
+            //IPAutomationBroker xboxIpAutomation = InitializeXboxIpListener(XboxColor);
+            //xboxIpAutomation.Start();
 
-            //HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
-            //hueAutomation.Start();
+            HueAutomationBroker hueAutomation = InitializeHueListner(HueColor);
+            hueAutomation.Start();
+
+            DenonAutomationBroker denonAutomation = InitializeDenonListener(DenonColor);
+            denonAutomation.Start();
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Press <ENTER> to stop the Plex-Automation-Client");
@@ -67,6 +75,26 @@ namespace PlexAutomation
             plexAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return plexAutomation;
+        }
+
+        /// <summary>
+        /// If denon input is game or cable turn off lights
+        /// If plex input is anything else or device is turned of turn on lights
+        /// </summary>
+        private static DenonAutomationBroker InitializeDenonListener(ConsoleColor consoleColor)
+        {
+            var notifiers = new List<INotifier>
+            {
+                new HueNotifier(HueIp, new List<int> {CinemaHueLamp}),
+                new MyStromNotifier(MyStromIp)
+            };
+
+            var listener = new DenonListenerService(DenonIp);
+
+            var denonAutomation = new DenonAutomationBroker(listener, notifiers);
+            denonAutomation.OnMessage += message => OutputMessage(message, consoleColor);
+
+            return denonAutomation;
         }
 
         /// <summary>
@@ -126,7 +154,7 @@ namespace PlexAutomation
                 new MyStromNotifier(MyStromIp)
             };
 
-            var listener = new HueListenerService(HueIp, CinemaHueLamp);
+            var listener = new HueListenerService(HueIp, KellerHueLamp);
 
             brokers = brokers ?? new List<IBroker>();
             var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers);
