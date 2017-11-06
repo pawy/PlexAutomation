@@ -58,7 +58,7 @@ namespace DenonListener
             }
             catch (WebException ex)
             {
-                if(ex.Status == WebExceptionStatus.ConnectFailure)
+                if(ex.Status == WebExceptionStatus.ConnectFailure || ex.Status == WebExceptionStatus.Timeout)
                 {
                     eventData = new DenonListenerEventData
                     {
