@@ -27,14 +27,16 @@ namespace PlexAutomation
         private const string HueIp = "192.168.1.32";
         private const string TvIp = "192.168.1.25";
         private const string XboxIp = "192.168.1.37";
-        private const string MyStromIp = "192.168.1.31";
-        private const string DenonIp = "192.168.1.24";
+        private const string MyStromIp = "192.168.1.22";
+        private const string DenonIp = "192.168.1.34";
 
         private const int CinemaHueLamp = 24;
         private const int KellerHueLamp = 6;
 
         static void Main(string[] args)
         {
+            DisableConsoleQuickEdit.Go();
+
             Console.WriteLine("Plex-Automation-Client starting...");
 
             PlexAutomationBroker plexAutomation = InitializePlexListener(PlexColor);

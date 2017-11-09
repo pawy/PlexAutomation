@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisableConsoleQuickEdit.cs" />
     <Compile Include="IPAutomationBroker.cs" />
     <Compile Include="HueAutomationBroker.cs" />
     <Compile Include="IBroker.cs" />
