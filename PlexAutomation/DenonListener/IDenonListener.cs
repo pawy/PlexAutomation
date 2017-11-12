@@ -10,5 +10,7 @@ namespace DenonListener
         void StopListener();
 
         event EventHandler<DenonNotificationEventArgs> OnNewNotification;
+
+        DenonListenerEventData GetStatus();
     }
 }

@@ -109,5 +109,10 @@ namespace PlexListener.PMS
             _timer.Stop();
             _timer.Dispose();
         }
+
+        public PlexListenerEventData GetStatus()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

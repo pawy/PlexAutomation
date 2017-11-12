@@ -51,44 +51,11 @@ namespace DenonListener
                 return;
             }
 
-            DenonListenerEventData eventData = null;
-            try
+            var eventData = GetStatus();
+            if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
             {
-                eventData = CreateEventDataFromItem(_denonWebChecker.Check());
-            }
-            catch (WebException ex)
-            {
-                if(ex.Status == WebExceptionStatus.ConnectFailure || ex.Status == WebExceptionStatus.Timeout)
-                {
-                    eventData = new DenonListenerEventData
-                    {
-                        EventType = EventType.Off
-                    };
-                }
-                else
-                {
-                    eventData = new DenonListenerEventData
-                    {
-                        EventType = EventType.Error,
-                        ErrorMessage = ex.Message
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                eventData = new DenonListenerEventData
-                {
-                    EventType = EventType.Error, 
-                    ErrorMessage = ex.Message
-                };
-            }
-            finally
-            {
-                if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
-                {
-                    _lastEventData = eventData;
-                    Notify(eventData);
-                }
+                _lastEventData = eventData;
+                Notify(eventData);
             }
         }
 
@@ -128,6 +95,42 @@ namespace DenonListener
         {
             _timer.Stop();
             _timer.Dispose();
+        }
+
+        public DenonListenerEventData GetStatus()
+        {
+            DenonListenerEventData eventData = null;
+            try
+            {
+                eventData = CreateEventDataFromItem(_denonWebChecker.Check());
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ConnectFailure || ex.Status == WebExceptionStatus.Timeout)
+                {
+                    eventData = new DenonListenerEventData
+                    {
+                        EventType = EventType.Off
+                    };
+                }
+                else
+                {
+                    eventData = new DenonListenerEventData
+                    {
+                        EventType = EventType.Error,
+                        ErrorMessage = ex.Message
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                eventData = new DenonListenerEventData
+                {
+                    EventType = EventType.Error,
+                    ErrorMessage = ex.Message
+                };
+            }
+            return eventData;
         }
     }
 }

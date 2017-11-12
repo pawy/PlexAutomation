@@ -10,5 +10,7 @@ namespace PlexListener
         void StopListener();
 
         event EventHandler<PlexNotificationEventArgs> OnNewNotification;
+
+        PlexListenerEventData GetStatus();
     }
 }

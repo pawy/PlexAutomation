@@ -7,6 +7,7 @@ using Notificators.MyStrom;
 using PlexListener.PMC;
 using DenonListener;
 using IPListener;
+using PlexListener;
 
 namespace PlexAutomation
 {
@@ -158,8 +159,11 @@ namespace PlexAutomation
 
             var listener = new HueListenerService(HueIp, KellerHueLamp);
 
+            var plexListener = new PlexListenerService(PlexIp);
+            var denonListener = new DenonListenerService(DenonIp);
+
             brokers = brokers ?? new List<IBroker>();
-            var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers);
+            var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers, plexListener, denonListener);
             hueAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return hueAutomation;

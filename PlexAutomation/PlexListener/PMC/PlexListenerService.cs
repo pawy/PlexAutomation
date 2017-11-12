@@ -50,34 +50,18 @@ namespace PlexListener.PMC
                 return;
             }
 
-            PlexListenerEventData eventData = null;
-            try
+            var eventData = GetStatus();
+            if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
             {
-                eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
+                _lastEventData = eventData;
+                Notify(eventData);
             }
-            catch (Exception ex)
-            {
-                eventData = new PlexListenerEventData
-                {
-                    EventType = EventType.Error, 
-                    ErrorMessage = ex.Message
-                };
-            }
-            finally
-            {
-                if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
-                {
-                    _lastEventData = eventData;
-                    Notify(eventData);
-                }
-            }
+
         }
 
 
         private PlexListenerEventData CreateEventDataFromMediaContainer(MediaContainer mediaContainer)
         {
-
-
             if (mediaContainer.Timelines.Any(timeline => timeline.State == "playing"))
             {
                 return new PlexListenerEventData
@@ -106,6 +90,25 @@ namespace PlexListener.PMC
         {
             _timer.Stop();
             _timer.Dispose();
+        }
+
+        public PlexListenerEventData GetStatus()
+        {
+            PlexListenerEventData eventData = null;
+            try
+            {
+                eventData = CreateEventDataFromMediaContainer(_plexWebChecker.Check());
+            }
+            catch (Exception ex)
+            {
+                eventData = new PlexListenerEventData
+                {
+                    EventType = EventType.Error,
+                    ErrorMessage = ex.Message
+                };
+            }
+
+            return eventData;
         }
     }
 }
