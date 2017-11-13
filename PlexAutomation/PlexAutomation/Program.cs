@@ -13,11 +13,6 @@ namespace PlexAutomation
 {
     class Program
     {
-        private static PlexAutomationBroker _plexAutomationBroker;
-        private static HueAutomationBroker _huerHueAutomationBroker;
-        private static IPAutomationBroker _ipAutomationBroker;
-        private static DenonAutomationBroker _denonAutomationBroker;
-
         private const ConsoleColor PlexColor = ConsoleColor.DarkGreen;
         private const ConsoleColor HueColor = ConsoleColor.Yellow;
         private const ConsoleColor TvColor = ConsoleColor.Cyan;
