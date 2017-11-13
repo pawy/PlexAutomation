@@ -62,7 +62,6 @@ namespace PlexListener.PMC
 
         }
 
-
         private PlexListenerEventData CreateEventDataFromMediaContainer(MediaContainer mediaContainer)
         {
             if (mediaContainer.Timelines.Any(timeline => timeline.State == "playing"))

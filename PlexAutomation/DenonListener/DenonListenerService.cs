@@ -57,6 +57,7 @@ namespace DenonListener
             if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
             {
                 _lastEventData = eventData;
+                LastState = eventData;
                 Notify(eventData);
             }
         }
