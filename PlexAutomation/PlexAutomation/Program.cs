@@ -158,12 +158,9 @@ namespace PlexAutomation
             };
 
             var listener = new HueListenerService(HueIp, KellerHueLamp);
-
-            var plexListener = new PlexListenerService(PlexIp);
-            var denonListener = new DenonListenerService(DenonIp);
-
+            
             brokers = brokers ?? new List<IBroker>();
-            var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers, plexListener, denonListener);
+            var hueAutomation = new HueAutomationBroker(listener, notifiers, brokers);
             hueAutomation.OnMessage += message => OutputMessage(message, consoleColor);
 
             return hueAutomation;

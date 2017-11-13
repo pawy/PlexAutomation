@@ -10,6 +10,8 @@ namespace DenonListener
 {
     public class DenonListenerService : IDenonListener, IDisposable
     {
+        public static DenonListenerEventData LastState = new DenonListenerEventData() { EventType = EventType.Off };
+
         private readonly DenonWebChecker _denonWebChecker;
         
         private readonly Timer _timer;

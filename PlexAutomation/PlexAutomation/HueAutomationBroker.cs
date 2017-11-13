@@ -16,10 +16,6 @@ namespace PlexAutomation
     {
         public IHueListener HueListener { get; private set; }
 
-        public IPLexListener PlexListenerService { get; private set; }
-
-        public IDenonListener DenonListenerService { get; set; }
-
         public List<INotifier> Notifiers { get; private set; }
 
         public List<IBroker> Brokers { get; private set; }
@@ -27,13 +23,11 @@ namespace PlexAutomation
         public delegate void MessageEventHandler(string message);
         public event MessageEventHandler OnMessage;
 
-        public HueAutomationBroker(IHueListener hueListener, List<INotifier> notifiers, List<IBroker> brokers, IPLexListener plexListener, IDenonListener denonListener)
+        public HueAutomationBroker(IHueListener hueListener, List<INotifier> notifiers, List<IBroker> brokers)
         {
             Notifiers = notifiers;
             Brokers = brokers;
             HueListener = hueListener;
-            PlexListenerService = plexListener;
-            DenonListenerService = denonListener;
             HueListener.OnNewNotification += OnNewNotification;
         }
 
@@ -59,13 +53,13 @@ namespace PlexAutomation
 
             SendMessage(string.Format("Event: {0}", e.HueListenerEventData.EventType));
 
-            if (PlexListenerService.GetStatus().EventType == PlexListener.Notification.EventType.Playing)
+            if (PlexListenerService.LastState.EventType == PlexListener.Notification.EventType.Playing)
             {
                 SendMessage(string.Format("Doing nothing because Plex is playing"));
                 return;
             }
 
-            if (new [] {DenonListener.Notification.EventType.SourceCableSat, DenonListener.Notification.EventType.SourceXbox}.Contains(DenonListenerService.GetStatus().EventType))
+            if (new [] {DenonListener.Notification.EventType.SourceCableSat, DenonListener.Notification.EventType.SourceXbox}.Contains(DenonListenerService.LastState.EventType))
             {
                 SendMessage(string.Format("Doing nothing because Xbox or TV is running"));
                 return;

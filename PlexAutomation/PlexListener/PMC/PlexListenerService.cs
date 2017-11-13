@@ -9,6 +9,8 @@ namespace PlexListener.PMC
 {
     public class PlexListenerService : IPLexListener, IDisposable
     {
+        public static PlexListenerEventData LastState = new PlexListenerEventData() { EventType = EventType.NotPlaying };
+
         private readonly PlexWebChecker _plexWebChecker;
         
         private readonly Timer _timer;
@@ -54,6 +56,7 @@ namespace PlexListener.PMC
             if (_lastEventData == null || (eventData != null && _lastEventData.EventType != eventData.EventType))
             {
                 _lastEventData = eventData;
+                LastState = eventData;
                 Notify(eventData);
             }
 
