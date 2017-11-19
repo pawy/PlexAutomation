@@ -4,6 +4,7 @@ using Notificators;
 using DenonListener;
 using DenonListener.Notification;
 using EventType = DenonListener.Notification.EventType;
+using PlexListener.PMC;
 
 namespace PlexAutomation
 {
@@ -44,6 +45,12 @@ namespace PlexAutomation
             }
 
             SendMessage(string.Format("Event: {0}",e.DenonListenerEventData.EventType));
+
+            if(PlexListenerService.LastState.EventType == PlexListener.Notification.EventType.Playing && e.DenonListenerEventData.EventType == EventType.SourceBD)
+            {
+                SendMessage(string.Format("Doing nothing because Plex is Playing"));
+                return;
+            }
 
             Notificators.EventType notificationEvent = e.DenonListenerEventData.EventType == EventType.SourceXbox || e.DenonListenerEventData.EventType == EventType.SourceCableSat
                 ? Notificators.EventType.TurnOff
