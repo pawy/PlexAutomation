@@ -46,7 +46,7 @@ namespace PlexAutomation
 
             SendMessage(string.Format("Event: {0}",e.DenonListenerEventData.EventType));
 
-            if(PlexListenerService.LastState.EventType == PlexListener.Notification.EventType.Playing && e.DenonListenerEventData.EventType == EventType.SourceBD)
+            if(PlexListenerService.LastState.EventType == PlexListener.Notification.EventType.Playing && (e.DenonListenerEventData.EventType == EventType.SourceBD || e.DenonListenerEventData.EventType == EventType.Off))
             {
                 SendMessage(string.Format("Doing nothing because Plex is Playing"));
                 return;
